@@ -64,7 +64,7 @@ while (numbFichier != -1):
             print("OK ! ")
         print("\n\t- Arc à valeur Négative ? ", end="")
         # False pour que cela soit correct
-        arcNegatif = checkArcValeurNegative(tableauContraintes)
+        arcNegatif = checkArcValeurNegative(matrice_valeur)
         if(arcIncidentEntreeNull == False):
             print(
                 "ERREUR : arc NEGATIF")
@@ -91,6 +91,7 @@ while (numbFichier != -1):
         affichageDate(listeComplete, ['Rangs', 'Tâches et sa longueur', 'Predecesseur', 'Date par Pred.',
                       'Date au plus tôt', 'Successeurs', 'Date par Succ.', 'Date au plus tard', 'Marge'])
 
+        trace("trace_1.txt", matrice_valeur, matriceAdj)
     except FileNotFoundError as e:
         if (numbFichier == -1):
             print("Au revoir !")
