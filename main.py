@@ -41,7 +41,13 @@ while (numbFichier != -1):
         print("\n\t- Un seul point de sortie ? ", end="")
         # True pour que cela soit correct
         sortie = checkUnPointSortie(matriceAdj)
-        circuit = False
+        print("\n\t- Le graphe contient-il un circuit ? ", end="")
+        circuit = checkCircuit(matriceAdj)
+        if(circuit == False):
+            print(
+                "ERREUR : Il y a un CIRCUIT dans ce graphe ! L'ordonnancement n'est pas possible !")
+        else:
+            print("OK ! ")
         print("\n\t- Arc incident indetiques ? ", end="")
         arcIncidentIden = arcIncidentIdentiques(matrice_valeur)
         if(arcIncidentIden == False):

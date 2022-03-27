@@ -49,4 +49,5 @@ def lectureTableauContrainte(nomFichier):
 
 
 def trace():
+
     return 0

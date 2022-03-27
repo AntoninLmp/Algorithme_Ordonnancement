@@ -2,6 +2,7 @@ from ast import Return
 from operator import le
 from os import TMP_MAX
 from re import L
+from turtle import rt
 from matplotlib import lines
 from matplotlib.pyplot import table
 import numpy as np
@@ -223,8 +224,36 @@ def checkUnPointSortie(matrice):
 
 
 # ------------------------------------------------------------
+# Un seul point de sortie
+# ------------------------------------------------------------
+def checkCircuit(matrice):
+    matriceCp = np.copy(matrice)
+    # Trouver le tableau avec les prédécesseurs
+    for i in range(len(matriceCp)):
+        tableau_pred = []
+        tableau_succ = []
+        for j in range(len(matriceCp[i])):
+            if (matriceCp[j][i] == 1):
+                tableau_pred.append(j)
+            if (matriceCp[i][j] == 1):
+                tableau_succ.append(j)
+        # print(tableau_pred, tableau_succ)
+        for m in range(len(tableau_pred)):
+            for n in range(len(tableau_succ)):
+                matriceCp[tableau_pred[m]][tableau_succ[n]] = 1
+        # print(matriceCp)
+    # Or on sait que le graphe est sans circuit s'il n'y a
+    # aucun 1 sur la diagonal de sa fermeture transitive
+    for i in range(len(matriceCp)):
+        if (matriceCp[i][i] == 1):
+            return False
+    return True
+
+# ------------------------------------------------------------
 # valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet
 # ------------------------------------------------------------
+
+
 def arcIncidentIdentiques(matriceValeur):
     taille = len(matriceValeur)  # Matrice carré taille de m = taille de n
     for i in range(1, taille):
