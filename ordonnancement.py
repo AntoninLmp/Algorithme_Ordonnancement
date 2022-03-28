@@ -246,7 +246,7 @@ def checkCircuit(matrice):
         for m in range(len(tableau_pred)):
             for n in range(len(tableau_succ)):
                 matriceCp[tableau_pred[m]][tableau_succ[n]] = 1
-        # print(matriceCp)
+    # print(matriceCp)
     # Or on sait que le graphe est sans circuit s'il n'y a aucun 1 sur la diagonal de sa fermeture transitive
     for i in range(len(matriceCp)):
         if (matriceCp[i][i] == 1):
