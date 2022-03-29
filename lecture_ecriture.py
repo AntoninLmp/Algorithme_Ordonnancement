@@ -50,7 +50,7 @@ def lectureTableauContrainte(nomFichier):
 # ------------------------------------------------------------
 
 
-def trace(nomFichier, matriceVal, matriceAdj):
+def trace(nomFichier, matriceVal, matriceAdj, tableauRangs):
     with open(nomFichier, "w") as fichier:
         # Sommets | Arcs | relation
         fichier.write("ETAPE 1 : Création du graphe d’ordonnancement :\n\n")
@@ -63,15 +63,15 @@ def trace(nomFichier, matriceVal, matriceAdj):
                     fichier.write(str(i) + " => " + str(j) +
                                   " = " + str(matriceVal[i][j]) + "\n")
         fichier.write(str(compteur) + " arcs\n")
+        # -------------------------------------------------------------------
         # Matrice d'ajacence et de valeur
+        # -------------------------------------------------------------------
+
         fichier.write("Matrice d'adjacence\n")
         for i in range(len(matriceAdj)):
             if(i == 0):
                 fichier.write("   ")
-            if (i < 10):
-                fichier.write(str(i) + "  ")
-            elif(i >= 10):
-                fichier.write(str(i) + " ")
+            fichier.write(str(i) + "  ")
         fichier.write("\n")
         for i in range(len(matriceAdj)):
             for j in range(len(matriceAdj)):
@@ -84,14 +84,13 @@ def trace(nomFichier, matriceVal, matriceAdj):
                 else:
                     fichier.write(str(matriceAdj[i][j]) + "  ")
             fichier.write("\n")
+        # -------------------------------------------------------------------
         fichier.write("Matrice des valeurs\n")
         for i in range(len(matriceVal)):
             if(i == 0):
                 fichier.write("   ")
-            if (i < 10):
-                fichier.write(str(i) + "  ")
-            elif(i >= 10):
-                fichier.write(str(i) + " ")
+            fichier.write(str(i) + "  ")
+
         fichier.write("\n")
         for i in range(len(matriceVal)):
             for j in range(len(matriceVal)):
@@ -105,12 +104,15 @@ def trace(nomFichier, matriceVal, matriceAdj):
                     fichier.write(str(matriceVal[i][j]) + "  ")
             fichier.write("\n")
 
+        # -------------------------------------------------------------------
+
         boolean, entree = checkUnPointEntree(matriceAdj)
         if (boolean == True):
             fichier.write("Il y a un seul point d'entree, " +
                           str(entree) + "\n")
         else:
             fichier.write("Il y a plusieurs points d'entrée\n")
+            return
 
         boolean, sortie = checkUnPointSortie(matriceAdj)
         if (boolean == True):
@@ -118,15 +120,13 @@ def trace(nomFichier, matriceVal, matriceAdj):
                           str(sortie) + "\n")
         else:
             fichier.write("Il y a plusieurs points de sortie\n")
+            return
 
         boolean, matriceTrans = checkCircuit(matriceAdj)
         for i in range(len(matriceTrans)):
             if(i == 0):
                 fichier.write("   ")
-            if (i < 10):
-                fichier.write(str(i) + "  ")
-            elif(i >= 10):
-                fichier.write(str(i) + " ")
+            fichier.write(str(i) + "  ")
         fichier.write("\n")
         for i in range(len(matriceTrans)):
             for j in range(len(matriceTrans)):
@@ -146,11 +146,13 @@ def trace(nomFichier, matriceVal, matriceAdj):
         else:
             fichier.write(
                 "Il y a un circuit car la diagonal de la matrice ne comporte un ou plusieurs 1 !\n")
+            return
 
         arcIncidentIden = arcIncidentIdentiques(matriceVal)
         if(arcIncidentIden == False):
             fichier.write(
                 "ERREUR : valeurs NON IDENTIQUES pour tous les arcs incidents vers l’extérieur à un sommet\n")
+            return
         else:
             fichier.write("Arc incident identiques donc c'est OK !\n")
 
@@ -158,6 +160,7 @@ def trace(nomFichier, matriceVal, matriceAdj):
         if(arcIncidentEntreeNull == False):
             fichier.write(
                 "ERREUR : valeurs NON NULL pour l'arc incident au point d'entree\n")
+            return
         else:
             fichier.write(
                 "arcs incidents vers l'exterieur au point d'entree de valeur nulle, OK !\n")
@@ -165,6 +168,13 @@ def trace(nomFichier, matriceVal, matriceAdj):
         arcNegatif = checkArcValeurNegative(matriceVal)
         if(arcNegatif == True):
             fichier.write("ERREUR : arc NEGATIF !\n")
+            return
         else:
             fichier.write(
                 "Ce graphe ne contient pas d'arc a valeur negatif, OK!\n")
+        fichier.write(
+            "\n\nC'est un graphe d'ordonnancement, il repond a toutes les exigences !\n\n")
+
+        fichier.write("Rangs")
+        for i in range(len(tableauRangs)):
+            fichier.write(tableauRangs[i])

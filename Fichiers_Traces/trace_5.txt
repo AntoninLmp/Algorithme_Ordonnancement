@@ -1,0 +1,92 @@
+ETAPE 1 : Création du graphe d’ordonnancement :
+
+15 sommets
+0 => 1 = 0
+0 => 2 = 0
+1 => 3 = 2
+2 => 4 = 5
+3 => 4 = 4
+3 => 12 = 4
+4 => 5 = 2
+4 => 11 = 2
+5 => 6 = 5
+6 => 7 = 5
+6 => 13 = 5
+7 => 8 = 9
+8 => 9 = 2
+9 => 14 = 5
+10 => 14 = 1
+11 => 10 = 1
+12 => 13 = 1
+13 => 14 = 9
+18 arcs
+Matrice d'adjacence
+   0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  
+0  0  1  1  0  0  0  0  0  0  0  0   0   0   0   0   
+1  0  0  0  1  0  0  0  0  0  0  0   0   0   0   0   
+2  0  0  0  0  1  0  0  0  0  0  0   0   0   0   0   
+3  0  0  0  0  1  0  0  0  0  0  0   0   1   0   0   
+4  0  0  0  0  0  1  0  0  0  0  0   1   0   0   0   
+5  0  0  0  0  0  0  1  0  0  0  0   0   0   0   0   
+6  0  0  0  0  0  0  0  1  0  0  0   0   0   1   0   
+7  0  0  0  0  0  0  0  0  1  0  0   0   0   0   0   
+8  0  0  0  0  0  0  0  0  0  1  0   0   0   0   0   
+9  0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
+10 0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
+11 0  0  0  0  0  0  0  0  0  0  1   0   0   0   0   
+12 0  0  0  0  0  0  0  0  0  0  0   0   0   1   0   
+13 0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
+14 0  0  0  0  0  0  0  0  0  0  0   0   0   0   0   
+Matrice des valeurs
+   0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  
+0  -  0  0  -  -  -  -  -  -  -  -   -   -   -   -   
+1  -  -  -  2  -  -  -  -  -  -  -   -   -   -   -   
+2  -  -  -  -  5  -  -  -  -  -  -   -   -   -   -   
+3  -  -  -  -  4  -  -  -  -  -  -   -   4   -   -   
+4  -  -  -  -  -  2  -  -  -  -  -   2   -   -   -   
+5  -  -  -  -  -  -  5  -  -  -  -   -   -   -   -   
+6  -  -  -  -  -  -  -  5  -  -  -   -   -   5   -   
+7  -  -  -  -  -  -  -  -  9  -  -   -   -   -   -   
+8  -  -  -  -  -  -  -  -  -  2  -   -   -   -   -   
+9  -  -  -  -  -  -  -  -  -  -  -   -   -   -   5   
+10 -  -  -  -  -  -  -  -  -  -  -   -   -   -   1   
+11 -  -  -  -  -  -  -  -  -  -  1   -   -   -   -   
+12 -  -  -  -  -  -  -  -  -  -  -   -   -   1   -   
+13 -  -  -  -  -  -  -  -  -  -  -   -   -   -   9   
+14 -  -  -  -  -  -  -  -  -  -  -   -   -   -   -   
+Il y a un seul point d'entree, 1
+Il y a un seul point de sortie, 15
+   0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  
+0  0  1  1  1  1  1  1  1  1  1  1   1   1   1   1   
+1  0  0  0  1  1  1  1  1  1  1  1   1   1   1   1   
+2  0  0  0  0  1  1  1  1  1  1  1   1   0   1   1   
+3  0  0  0  0  1  1  1  1  1  1  1   1   1   1   1   
+4  0  0  0  0  0  1  1  1  1  1  1   1   0   1   1   
+5  0  0  0  0  0  0  1  1  1  1  0   0   0   1   1   
+6  0  0  0  0  0  0  0  1  1  1  0   0   0   1   1   
+7  0  0  0  0  0  0  0  0  1  1  0   0   0   0   1   
+8  0  0  0  0  0  0  0  0  0  1  0   0   0   0   1   
+9  0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
+10 0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
+11 0  0  0  0  0  0  0  0  0  0  1   0   0   0   1   
+12 0  0  0  0  0  0  0  0  0  0  0   0   0   1   1   
+13 0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
+14 0  0  0  0  0  0  0  0  0  0  0   0   0   0   0   
+Il y a pas de circuit car la diagonal de la matrice ne comporte aucun 1!
+Arc incident identiques donc c'est OK !
+arcs incidents vers l'exterieur au point d'entree de valeur nulle, OK !
+Ce graphe ne contient pas d'arc a valeur negatif, OK!
+
+
+C'est un graphe d'ordonnancement, il repond a toutes les exigences !
+
+RangsLes etats de RANG 0 sont : { a }
+Les etats de RANG 1 sont : { 1 2 }
+Les etats de RANG 2 sont : { 3 }
+Les etats de RANG 3 sont : { 4 12 }
+Les etats de RANG 4 sont : { 5 11 }
+Les etats de RANG 5 sont : { 6 10 }
+Les etats de RANG 6 sont : { 7 13 }
+Les etats de RANG 7 sont : { 8 }
+Les etats de RANG 8 sont : { 9 }
+Les etats de RANG 9 sont : { w }

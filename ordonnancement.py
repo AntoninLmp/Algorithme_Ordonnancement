@@ -200,7 +200,7 @@ def checkUnPointEntree(matrice):
             if (contientUn1 == False):
                 compteurEntree += 1
                 entree = i+1
-                print(i+1, " est une entrée")
+                # print(i+1, " est une entrée")
         if(compteurEntree == 1):
             return True, entree
     return False, entree
@@ -222,7 +222,7 @@ def checkUnPointSortie(matrice):
             if (contientUn1 == False):
                 compteurSortie += 1
                 sortie = i + 1
-                print(i+1, " est une sortie")
+                # print(i+1, " est une sortie")
         if(compteurSortie == 1):
             return True, sortie
     return False, sortie
@@ -314,11 +314,13 @@ def calculRangs(matrice):
     etatRestant = len(matrice)
     numRang = 0
     tableauRangs = []  # Stocker et pouvoir réutiliser les rangs par la suite
+    tableauTraceRangs = []
 
     # Boucles pour le nombre de rangs
     while etatRestant > 0:
         rangAEliminer = []
         print("Les états de RANG "+str(numRang) + " sont : { ", end="")
+        lignes = "Les etats de RANG "+str(numRang) + " sont : { "
         # Recherche des lignes a supprimé
         for i in range(0, len(matriceCopie)):
             contientUn1 = False
@@ -342,10 +344,13 @@ def calculRangs(matrice):
         for m in range(0, len(rangAEliminer)):
             if(rangAEliminer[m] == 0):
                 print("α", end=" ")
+                lignes += "a "
             elif(rangAEliminer[m] == len(matrice)-1):
                 print("ω", end=" ")
+                lignes += "w "
             else:
                 print(rangAEliminer[m], end=" ")
+                lignes += str(rangAEliminer[m]) + " "
             for n in range(0, len(matriceCopie)):
                 matriceCopie[rangAEliminer[m]][n] = 2
             for n in range(0, len(matriceCopie)):
@@ -354,8 +359,10 @@ def calculRangs(matrice):
         rangAEliminer.clear()
         numRang += 1
         print("}")
+        lignes += "}\n"
+        tableauTraceRangs.append(lignes)
 
-    return tableauRangs
+    return tableauRangs, tableauTraceRangs
 
 # ------------------------------------------------------------
 # Calcul au plus tôt
