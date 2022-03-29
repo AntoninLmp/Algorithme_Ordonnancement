@@ -1,7 +1,9 @@
 from ast import Return
 from operator import le
 from os import TMP_MAX
+from pickle import FALSE
 from re import L
+from turtle import rt
 from matplotlib import lines
 from matplotlib.pyplot import table
 import numpy as np
@@ -187,6 +189,7 @@ def matriceValeur(tableauContraintes):
 # ------------------------------------------------------------
 def checkUnPointEntree(matrice):
     if (None != matrice):
+        entree = -1
         compteurEntree = 0
         for i in range(0, len(matrice)):
             contientUn1 = False
@@ -196,10 +199,11 @@ def checkUnPointEntree(matrice):
                     break
             if (contientUn1 == False):
                 compteurEntree += 1
+                entree = i+1
                 print(i+1, " est une entrée")
         if(compteurEntree == 1):
-            return True
-    return False
+            return True, entree
+    return False, entree
 
 
 # ------------------------------------------------------------
@@ -208,6 +212,7 @@ def checkUnPointEntree(matrice):
 def checkUnPointSortie(matrice):
     if (None != matrice):
         compteurSortie = 0
+        sortie = -1
         for i in range(0, len(matrice)):
             contientUn1 = False
             for j in range(0, len(matrice)):
@@ -216,15 +221,43 @@ def checkUnPointSortie(matrice):
                     break
             if (contientUn1 == False):
                 compteurSortie += 1
+                sortie = i + 1
                 print(i+1, " est une sortie")
         if(compteurSortie == 1):
-            return True
-    return False
+            return True, sortie
+    return False, sortie
 
+
+# ------------------------------------------------------------
+# Fermuture transitive pour détecter un circuit
+# ------------------------------------------------------------
+def checkCircuit(matrice):
+    matriceCp = np.copy(matrice)
+    # Trouver le tableau avec les prédécesseurs
+    for i in range(len(matriceCp)):
+        tableau_pred = []
+        tableau_succ = []
+        for j in range(len(matriceCp[i])):
+            if (matriceCp[j][i] == 1):
+                tableau_pred.append(j)
+            if (matriceCp[i][j] == 1):
+                tableau_succ.append(j)
+        # print(tableau_pred, tableau_succ)
+        for m in range(len(tableau_pred)):
+            for n in range(len(tableau_succ)):
+                matriceCp[tableau_pred[m]][tableau_succ[n]] = 1
+    # print(matriceCp)
+    # Or on sait que le graphe est sans circuit s'il n'y a aucun 1 sur la diagonal de sa fermeture transitive
+    for i in range(len(matriceCp)):
+        if (matriceCp[i][i] == 1):
+            return True, matriceCp
+    return False, matriceCp
 
 # ------------------------------------------------------------
 # valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet
 # ------------------------------------------------------------
+
+
 def arcIncidentIdentiques(matriceValeur):
     taille = len(matriceValeur)  # Matrice carré taille de m = taille de n
     for i in range(1, taille):
@@ -253,18 +286,28 @@ def arcIncidentPointEntree(matriceValeur):
 # ------------------------------------------------------------
 # Pas d'arc à valeur négative
 # ------------------------------------------------------------
-def checkArcValeurNegative(tableauContraintes):
-    if (None != tableauContraintes):
-        for i in range(0, len(tableauContraintes)):
-            # On vérifie que les arcs ne soit pas négatif
-            if(tableauContraintes[i][1] < 0):
-                return True
+# def checkArcValeurNegative(tableauContraintes):
+#     if (None != tableauContraintes):
+#         for i in range(0, len(tableauContraintes)):
+#             # On vérifie que les arcs ne soit pas négatif
+#             if(tableauContraintes[i][1] < 0):
+#                 return True
+#     return False
+
+
+def checkArcValeurNegative(matriceValeur):
+    if (None != matriceValeur):
+        for i in range(0, len(matriceValeur)):
+            for j in range(len(matriceValeur[i])):
+                # On vérifie que les arcs ne soit pas négatif
+                if(matriceValeur[i][j] != '-' and matriceValeur[i][j] < 0):
+                    return True
     return False
-
-
 # ------------------------------------------------------------
 # Calcul des rangs
 # ------------------------------------------------------------
+
+
 def calculRangs(matrice):
     # Variables utiles
     matriceCopie = np.copy(matrice)

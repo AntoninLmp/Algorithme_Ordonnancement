@@ -1,3 +1,4 @@
+from pickle import TRUE
 from types import TracebackType
 from lecture_ecriture import *
 from ordonnancement import *
@@ -13,7 +14,7 @@ while (numbFichier != -1):
     print("Quel fichier voulez vous analyser ?")
     numbFichier = int(input())
     try:
-        fichierTest = "Fichiers_Tests/test_"+str(numbFichier)+".txt"
+        fichierTest = "Fichiers_Tests/table "+str(numbFichier)+".txt"
         with open(fichierTest, "r") as f:
             print("Ce fichier existe, Analysons le !")
         print("---------------------------------------------------------")
@@ -41,27 +42,41 @@ while (numbFichier != -1):
         print("\n\t- Un seul point de sortie ? ", end="")
         # True pour que cela soit correct
         sortie = checkUnPointSortie(matriceAdj)
-        circuit = False
+        # ----------------------------------------------------------------
+        print("\n\t- Le graphe contient-il un circuit ? ", end="")
+        circuit, matriceTransitive = checkCircuit(matriceAdj)
+        if(circuit == True):
+            print(
+                "ERREUR : Il y a un CIRCUIT dans ce graphe ! L'ordonnancement n'est pas possible !")
+            continue
+        else:
+            print("OK, Le graphe ne contient pas de circuit ! ")
+        # ----------------------------------------------------------------
         print("\n\t- Arc incident indetiques ? ", end="")
         arcIncidentIden = arcIncidentIdentiques(matrice_valeur)
         if(arcIncidentIden == False):
             print(
                 "ERREUR : valeurs NON IDENTIQUES pour tous les arcs incidents vers l’extérieur à un sommet")
+            continue
         else:
-            print("OK ! ")
+            print("OK, Les valeurs des arcs incidents sont identiques ! ")
+        # ----------------------------------------------------------------
         print("\n\t- Arc incident entree nulle ? ", end="")
         arcIncidentEntreeNull = arcIncidentPointEntree(matrice_valeur)
         if(arcIncidentEntreeNull == False):
             print(
                 "ERREUR : valeurs NON NULL pour l'arc incident au point d'entree")
+            continue
         else:
-            print("OK ! ")
+            print("OK, Valeurs null pour l'arc incident au point d'entrée ! ")
+        # ----------------------------------------------------------------
         print("\n\t- Arc à valeur Négative ? ", end="")
         # False pour que cela soit correct
-        arcNegatif = checkArcValeurNegative(tableauContraintes)
+        arcNegatif = checkArcValeurNegative(matrice_valeur)
         if(arcIncidentEntreeNull == False):
             print(
                 "ERREUR : arc NEGATIF")
+            continue
         else:
             print("OK ! ")
 
@@ -85,6 +100,7 @@ while (numbFichier != -1):
         affichageDate(listeComplete, ['Rangs', 'Tâches et sa longueur', 'Predecesseur', 'Date par Pred.',
                       'Date au plus tôt', 'Successeurs', 'Date par Succ.', 'Date au plus tard', 'Marge'])
 
+        trace("trace_1.txt", matrice_valeur, matriceAdj)
     except FileNotFoundError as e:
         if (numbFichier == -1):
             print("Au revoir !")
