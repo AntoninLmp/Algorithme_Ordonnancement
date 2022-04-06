@@ -89,13 +89,22 @@ def affichageMatricePretty(matrice):
 
 def affichageDate(list, nomColonne):
     tableau = PrettyTable()
+
+    tab_field_names = ['Tâches, sa longueur']
+    for i in range(0, len(list[0])):
+        tab_field_names.append(list[1][i])
+    tableau.field_names = tab_field_names
+
     # Row
     tab_tmp = np.array(nomColonne)
     list = np.array(list, dtype=object)
     list = np.column_stack((tab_tmp, list))
 
+    comp = 0
     for line in list:
-        tableau.add_row(line)
+        if (comp != 1):
+            tableau.add_row(line)
+        comp += 1
     print(tableau)
 # ------------------------------------------------------------
 # Construction de la matrice d'adjacence
@@ -495,3 +504,12 @@ def calculMarges(listDate):
         listeMarge.append(listDate[7][i] - listDate[4][i])
     listDate.append(listeMarge)
     return listDate
+
+
+def calculDesCheminsCritiques(listDate):
+    listeCheminsCritique = []
+    for i in range(len(listDate[0])):
+        if (listDate[8][i] == 0):
+            # Numéro de l'etat
+            listeCheminsCritique.append(listDate[1][i][0])
+    return listeCheminsCritique

@@ -54,7 +54,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : Il y a un CIRCUIT dans ce graphe ! L'ordonnancement n'est pas possible !")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK, Le graphe ne contient pas de circuit ! ")
@@ -65,7 +65,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : valeurs NON IDENTIQUES pour tous les arcs incidents vers l’extérieur à un sommet")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK, Les valeurs des arcs incidents sont identiques ! ")
@@ -76,7 +76,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : valeurs NON NULL pour l'arc incident au point d'entree")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK, Valeurs null pour l'arc incident au point d'entrée ! ")
@@ -88,7 +88,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : arc NEGATIF")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK ! ")
@@ -98,23 +98,28 @@ while (numbFichier != -1):
         print("---------------------------------------------------------")
         listRangs, tableauTracesRangs = calculRangs(matriceAdj)
         print("---------------------------------------------------------")
-        print("\t6. Calcul Date aux plus tôt Et aux plus tard")
+        print("\t6. Calcul Date aux plus tôt, aux plus tard et Calcul des Marges")
         print("---------------------------------------------------------")
         listDateAuPlusTot = calculDateAuPlusTot(
             matriceAdj, tableauContraintes, listRangs)
         listePlusTotPlusTard = calculDateAuPlusTard(
             matriceAdj, tableauContraintes, listDateAuPlusTot)
-
-        print("---------------------------------------------------------")
-        print("\t7. Calcul des Marges")
-        print("---------------------------------------------------------")
         listeComplete = calculMarges(listePlusTotPlusTard)
+
+        listeCheminsCritique = calculDesCheminsCritiques(listePlusTotPlusTard)
 
         affichageDate(listeComplete, ['Rangs', 'Tâches et sa longueur', 'Predecesseur', 'Date par Pred.',
                                       'Date au plus tôt', 'Successeurs', 'Date par Succ.', 'Date au plus tard', 'Marge'])
 
+        print("\n\n---------------------------------------------------------")
+        print("Chemins critiques : ", end="")
+        for num in listeCheminsCritique:
+            print(num, " ", end="")
+        print("\n\n")
         # Ecriture de la trace du fichier
-        trace(nomTrace, matrice_valeur, matriceAdj, tableauTracesRangs)
+        trace(nomTrace, matrice_valeur, matriceAdj,
+              tableauTracesRangs, listeCheminsCritique)
+
     except FileNotFoundError as e:
         if (numbFichier == -1):
             print("Au revoir !")

@@ -56,6 +56,7 @@ Matrice des valeurs
 14 -  -  -  -  -  -  -  -  -  -  -   -   -   -   -   
 Il y a un seul point d'entree, 1
 Il y a un seul point de sortie, 15
+-- Matrice de fermeture transitive --
    0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  
 0  0  1  1  1  1  1  1  1  1  1  1   1   1   1   1   
 1  0  0  0  1  1  1  1  1  1  1  1   1   1   1   1   
@@ -80,7 +81,8 @@ Ce graphe ne contient pas d'arc a valeur negatif, OK!
 
 C'est un graphe d'ordonnancement, il repond a toutes les exigences !
 
-RangsLes etats de RANG 0 sont : { a }
+Rangs : 
+Les etats de RANG 0 sont : { a }
 Les etats de RANG 1 sont : { 1 2 }
 Les etats de RANG 2 sont : { 3 }
 Les etats de RANG 3 sont : { 4 12 }
@@ -90,3 +92,6 @@ Les etats de RANG 6 sont : { 7 13 }
 Les etats de RANG 7 sont : { 8 }
 Les etats de RANG 8 sont : { 9 }
 Les etats de RANG 9 sont : { w }
+
+Chemins critiques :
+0 1 3 4 5 6 7 8 9 14 
