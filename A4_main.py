@@ -120,8 +120,10 @@ while (numbFichier != -1):
         trace(nomTrace, matrice_valeur, matriceAdj,
               tableauTracesRangs, listeCheminsCritique)
 
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         if (numbFichier == -1):
             print("Au revoir !")
         else:
             print("Ce fichier n'existe pas, veuillez réessayer !")
+    except ValueError:
+        print("Saisie impossible, veuillez réessayer !")
