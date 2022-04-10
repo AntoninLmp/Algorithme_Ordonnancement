@@ -1,5 +1,5 @@
 from xmlrpc.client import boolean
-from ordonnancement import *
+from A4_Algo_ordonnancement import *
 
 # ------------------------------------------------------------
 # Lecture d'un tableau de contrainte et stockage en mémoire
@@ -50,7 +50,7 @@ def lectureTableauContrainte(nomFichier):
 # ------------------------------------------------------------
 
 
-def trace(nomFichier, matriceVal, matriceAdj, tableauRangs):
+def trace(nomFichier, matriceVal, matriceAdj, tableauRangs, listeCheminsCritique):
     with open(nomFichier, "w") as fichier:
         # Sommets | Arcs | relation
         fichier.write("ETAPE 1 : Création du graphe d’ordonnancement :\n\n")
@@ -123,6 +123,7 @@ def trace(nomFichier, matriceVal, matriceAdj, tableauRangs):
             return
 
         boolean, matriceTrans = checkCircuit(matriceAdj)
+        fichier.write("-- Matrice de fermeture transitive --\n")
         for i in range(len(matriceTrans)):
             if(i == 0):
                 fichier.write("   ")
@@ -172,9 +173,14 @@ def trace(nomFichier, matriceVal, matriceAdj, tableauRangs):
         else:
             fichier.write(
                 "Ce graphe ne contient pas d'arc a valeur negatif, OK!\n")
+
         fichier.write(
             "\n\nC'est un graphe d'ordonnancement, il repond a toutes les exigences !\n\n")
 
-        fichier.write("Rangs")
+        fichier.write("Rangs : \n")
         for i in range(len(tableauRangs)):
             fichier.write(tableauRangs[i])
+
+        fichier.write("\nChemins critiques :\n")
+        for num in listeCheminsCritique:
+            fichier.write(str(num) + " ")

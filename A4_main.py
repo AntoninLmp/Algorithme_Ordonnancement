@@ -1,8 +1,5 @@
-from pickle import TRUE
-from secrets import choice
-from types import TracebackType
-from lecture_ecriture import *
-from ordonnancement import *
+from A4_lecture_ecriture import *
+from A4_Algo_ordonnancement import *
 
 print("--------------------------------------------")
 print("                 Bonjour                    ")
@@ -16,7 +13,7 @@ while (numbFichier != -1):
     numbFichier = int(input())
     try:
         fichierTest = "Fichiers_Tests/table " + str(numbFichier) + ".txt"
-        nomTrace = "Fichiers_Traces/trace_" + str(numbFichier) + ".txt"
+        nomTrace = "Fichiers_Traces/A4_trace_" + str(numbFichier) + ".txt"
 
         with open(fichierTest, "r") as f:
             print("Ce fichier existe, Analysons le !")
@@ -37,8 +34,11 @@ while (numbFichier != -1):
         matrice_valeur = matriceValeur(tableauContraintes)
         affichageMatricePretty(matrice_valeur)
         print("---------------------------------------------------------")
-        print("\t4. Vérification des propriétés nécessaire")
+        print("\t4. Vérification des propriétés nécessaires")
         print("---------------------------------------------------------")
+        print("< ! > Attention 0 = α et " +
+              str(len(matrice_valeur)-1) + " = ω")
+
         print("\n\t- Un seul point d'entrée ? ", end="")
         # True pour que cela soit correct
         entree, num_entree = checkUnPointEntree(matriceAdj)
@@ -54,7 +54,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : Il y a un CIRCUIT dans ce graphe ! L'ordonnancement n'est pas possible !")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK, Le graphe ne contient pas de circuit ! ")
@@ -65,7 +65,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : valeurs NON IDENTIQUES pour tous les arcs incidents vers l’extérieur à un sommet")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK, Les valeurs des arcs incidents sont identiques ! ")
@@ -76,7 +76,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : valeurs NON NULL pour l'arc incident au point d'entree")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK, Valeurs null pour l'arc incident au point d'entrée ! ")
@@ -88,7 +88,7 @@ while (numbFichier != -1):
             print(
                 "ERREUR : arc NEGATIF")
             # Ecriture de la trace du fichier
-            trace(nomTrace, matrice_valeur, matriceAdj, None)
+            trace(nomTrace, matrice_valeur, matriceAdj, None, None)
             continue
         else:
             print("OK ! ")
@@ -98,25 +98,32 @@ while (numbFichier != -1):
         print("---------------------------------------------------------")
         listRangs, tableauTracesRangs = calculRangs(matriceAdj)
         print("---------------------------------------------------------")
-        print("\t6. Calcul Date aux plus tôt Et aux plus tard")
+        print("\t6. Calcul Date aux plus tôt, aux plus tard et Calcul des Marges")
         print("---------------------------------------------------------")
         listDateAuPlusTot = calculDateAuPlusTot(
             matriceAdj, tableauContraintes, listRangs)
         listePlusTotPlusTard = calculDateAuPlusTard(
             matriceAdj, tableauContraintes, listDateAuPlusTot)
-
-        print("---------------------------------------------------------")
-        print("\t7. Calcul des Marges")
-        print("---------------------------------------------------------")
         listeComplete = calculMarges(listePlusTotPlusTard)
+
+        listeCheminsCritique = calculDesCheminsCritiques(listePlusTotPlusTard)
 
         affichageDate(listeComplete, ['Rangs', 'Tâches et sa longueur', 'Predecesseur', 'Date par Pred.',
                                       'Date au plus tôt', 'Successeurs', 'Date par Succ.', 'Date au plus tard', 'Marge'])
 
+        print("\n\n---------------------------------------------------------")
+        print("Chemins critiques : ", end="")
+        for num in listeCheminsCritique:
+            print(num, " ", end="")
+        print("\n\n")
         # Ecriture de la trace du fichier
-        trace(nomTrace, matrice_valeur, matriceAdj, tableauTracesRangs)
-    except FileNotFoundError as e:
+        trace(nomTrace, matrice_valeur, matriceAdj,
+              tableauTracesRangs, listeCheminsCritique)
+
+    except FileNotFoundError:
         if (numbFichier == -1):
             print("Au revoir !")
         else:
             print("Ce fichier n'existe pas, veuillez réessayer !")
+    except ValueError:
+        print("Saisie impossible, veuillez réessayer !")
