@@ -1,5 +1,5 @@
 from xmlrpc.client import boolean
-from ordonnancement import *
+from A4_Algo_ordonnancement import *
 
 # ------------------------------------------------------------
 # Lecture d'un tableau de contrainte et stockage en mémoire

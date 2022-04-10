@@ -1,8 +1,5 @@
-from pickle import TRUE
-from secrets import choice
-from types import TracebackType
-from lecture_ecriture import *
-from ordonnancement import *
+from A4_lecture_ecriture import *
+from A4_Algo_ordonnancement import *
 
 print("--------------------------------------------")
 print("                 Bonjour                    ")
@@ -16,7 +13,7 @@ while (numbFichier != -1):
     numbFichier = int(input())
     try:
         fichierTest = "Fichiers_Tests/table " + str(numbFichier) + ".txt"
-        nomTrace = "Fichiers_Traces/trace_" + str(numbFichier) + ".txt"
+        nomTrace = "Fichiers_Traces/A4_trace_" + str(numbFichier) + ".txt"
 
         with open(fichierTest, "r") as f:
             print("Ce fichier existe, Analysons le !")
@@ -37,8 +34,11 @@ while (numbFichier != -1):
         matrice_valeur = matriceValeur(tableauContraintes)
         affichageMatricePretty(matrice_valeur)
         print("---------------------------------------------------------")
-        print("\t4. Vérification des propriétés nécessaire")
+        print("\t4. Vérification des propriétés nécessaires")
         print("---------------------------------------------------------")
+        print("< ! > Attention 0 = α et " +
+              str(len(matrice_valeur)-1) + " = ω")
+
         print("\n\t- Un seul point d'entrée ? ", end="")
         # True pour que cela soit correct
         entree, num_entree = checkUnPointEntree(matriceAdj)

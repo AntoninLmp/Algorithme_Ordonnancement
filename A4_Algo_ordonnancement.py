@@ -1,14 +1,5 @@
-from ast import Return
-from operator import le
-from os import TMP_MAX
-from pickle import FALSE
-from re import L
-from turtle import rt
-from matplotlib import lines
-from matplotlib.pyplot import table
 import numpy as np
 from prettytable import PrettyTable
-import prettytable
 
 
 # ------------------------------------------------------------
@@ -37,30 +28,6 @@ def affichageTableau(tableau):
 # ------------------------------------------------------------
 # Affichage de matrice grâce à prettyTable
 # ------------------------------------------------------------
-# def affichageMatrice(matrice):
-#     print("    | ", end="")
-#     for i in range(0, len(matrice)):
-#         print(i+1, end=" | ")
-#     print()
-#     print("----|", end="")
-#     for i in range(0, len(matrice)):
-#         if (i >= 9):
-#             print("----", end="|")
-#         else:
-#             print("---", end="|")
-#     # Affichage du corps
-#     for i in range(0, len(matrice)):
-#         if (i+1 > 9):
-#             print("\n "+str(i+1)+" | ", end="")
-#         else:
-#             print("\n "+str(i+1)+"  | ", end="")
-#         for j in range(0, len(matrice[i])):
-#             if (j >= 9):
-#                 print(matrice[i][j], end="  | ")
-#             else:
-#                 print(matrice[i][j], end=" | ")
-#     print()
-
 
 def affichageMatricePretty(matrice):
     tab_adj = PrettyTable()
@@ -208,7 +175,7 @@ def checkUnPointEntree(matrice):
                     break
             if (contientUn1 == False):
                 compteurEntree += 1
-                entree = i+1
+                entree = i
                 # print(i+1, " est une entrée")
         if(compteurEntree == 1):
             return True, entree
@@ -230,7 +197,7 @@ def checkUnPointSortie(matrice):
                     break
             if (contientUn1 == False):
                 compteurSortie += 1
-                sortie = i + 1
+                sortie = i
                 # print(i+1, " est une sortie")
         if(compteurSortie == 1):
             return True, sortie
