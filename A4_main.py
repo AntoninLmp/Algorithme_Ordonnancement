@@ -10,8 +10,8 @@ print("Ce programme sert à analyser des graphes !")
 numbFichier = 1
 while (numbFichier != -1):
     print("Quel fichier voulez vous analyser ?")
-    numbFichier = int(input())
     try:
+        numbFichier = int(input())
         fichierTest = "Fichiers_Tests/table " + str(numbFichier) + ".txt"
         nomTrace = "Fichiers_Traces/A4_trace_" + str(numbFichier) + ".txt"
 
@@ -59,7 +59,7 @@ while (numbFichier != -1):
         else:
             print("OK, Le graphe ne contient pas de circuit ! ")
         # ----------------------------------------------------------------
-        print("\n\t- Arc incident indetiques ? ", end="")
+        print("\n\t- Arc incident identiques ? ", end="")
         arcIncidentIden = arcIncidentIdentiques(matrice_valeur)
         if(arcIncidentIden == False):
             print(
@@ -98,7 +98,7 @@ while (numbFichier != -1):
         print("---------------------------------------------------------")
         listRangs, tableauTracesRangs = calculRangs(matriceAdj)
         print("---------------------------------------------------------")
-        print("\t6. Calcul Date aux plus tôt, aux plus tard et Calcul des Marges")
+        print("\t6. Calcul Date au plus tôt, au plus tard et Calcul des Marges")
         print("---------------------------------------------------------")
         listDateAuPlusTot = calculDateAuPlusTot(
             matriceAdj, tableauContraintes, listRangs)
@@ -116,6 +116,7 @@ while (numbFichier != -1):
         for num in listeCheminsCritique:
             print(num, " ", end="")
         print("\n\n")
+
         # Ecriture de la trace du fichier
         trace(nomTrace, matrice_valeur, matriceAdj,
               tableauTracesRangs, listeCheminsCritique)

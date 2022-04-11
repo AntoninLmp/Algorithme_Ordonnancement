@@ -78,7 +78,7 @@ Il y a un seul point de sortie, 14
 12 0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
 13 0  0  0  0  0  0  0  0  0  0  0   0   0   0   1   
 14 0  0  0  0  0  0  0  0  0  0  0   0   0   0   0   
-Il y a pas de circuit car la diagonal de la matrice ne comporte aucun 1!
+Il n'y a pas de circuit car la diagonale de la matrice ne comporte aucun 1!
 Arc incident identiques donc c'est OK !
 arcs incidents vers l'exterieur au point d'entree de valeur nulle, OK !
 Ce graphe ne contient pas d'arc a valeur negatif, OK!

@@ -1,4 +1,3 @@
-from xmlrpc.client import boolean
 from A4_Algo_ordonnancement import *
 
 # ------------------------------------------------------------
@@ -41,7 +40,7 @@ def lectureTableauContrainte(nomFichier):
             tableauContrainte.append(ligneTableauContrainte)
             # Lecture d'une nouvelle ligne
             ligneFichier = fichier.readline()
-        print(tableauContrainte)
+        # print(tableauContrainte)
         return tableauContrainte
     return False
 
@@ -143,10 +142,10 @@ def trace(nomFichier, matriceVal, matriceAdj, tableauRangs, listeCheminsCritique
 
         if (boolean == False):
             fichier.write(
-                "Il y a pas de circuit car la diagonal de la matrice ne comporte aucun 1!\n")
+                "Il n'y a pas de circuit car la diagonale de la matrice ne comporte aucun 1!\n")
         else:
             fichier.write(
-                "Il y a un circuit car la diagonal de la matrice ne comporte un ou plusieurs 1 !\n")
+                "Il y a un circuit car la diagonale de la matrice comporte un ou plusieurs 1 !\n")
             return
 
         arcIncidentIden = arcIncidentIdentiques(matriceVal)

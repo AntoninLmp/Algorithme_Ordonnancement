@@ -205,7 +205,7 @@ def checkUnPointSortie(matrice):
 
 
 # ------------------------------------------------------------
-# Fermuture transitive pour détecter un circuit
+# Fermeture transitive pour détecter un circuit
 # ------------------------------------------------------------
 def checkCircuit(matrice):
     matriceCp = np.copy(matrice)
@@ -223,7 +223,7 @@ def checkCircuit(matrice):
             for n in range(len(tableau_succ)):
                 matriceCp[tableau_pred[m]][tableau_succ[n]] = 1
     # print(matriceCp)
-    # Or on sait que le graphe est sans circuit s'il n'y a aucun 1 sur la diagonal de sa fermeture transitive
+    # Or on sait que le graphe est sans circuit s'il n'y a aucun 1 sur la diagonale de sa fermeture transitive
     for i in range(len(matriceCp)):
         if (matriceCp[i][i] == 1):
             return True, matriceCp
@@ -297,19 +297,20 @@ def calculRangs(matrice):
         rangAEliminer = []
         print("Les états de RANG "+str(numRang) + " sont : { ", end="")
         lignes = "Les etats de RANG "+str(numRang) + " sont : { "
-        # Recherche des lignes a supprimé
+        # Recherche des lignes a supprimé, il peut en avoir plusieurs stocké dans rangAEliminer
         for i in range(0, len(matriceCopie)):
+            # Initialisation des variables
             contientUn1 = False
             nombreDe2 = 0
 
             for j in range(0, len(matriceCopie)):
                 if (matriceCopie[j][i] == 2):
                     nombreDe2 += 1
-                # Si on detecte un 1 alors il ne s'agit pas d'un état qui ne possede aucun predecesseur
+                # Si on detecte un 1 alors il s'agit d'un état qui possede des predecesseurs
                 if (matriceCopie[j][i] == 1):
                     contientUn1 = True
                     break
-
+            # Si aucun 1 alors il n'y a pas de predecesseurs donc on élimine l'état
             if (contientUn1 == False and nombreDe2 != len(matriceCopie)):
                 rangAEliminer.append(i)
                 etatRestant -= 1
@@ -407,8 +408,6 @@ def calculDateAuPlusTot(matriceAdj, tableauContraintes, rang):
     for tab in listDatePlusTot[3]:
         listDatePlusTot[4].append(max(tab))
     # ----------------------------------------
-    # affichageDate(listDatePlusTot, ['Rangs', 'Tâches et sa longueur',
-    #                                 'Predecesseur', 'Date par Pred.', 'Date au plus tôt'])
     return listDatePlusTot
 
 

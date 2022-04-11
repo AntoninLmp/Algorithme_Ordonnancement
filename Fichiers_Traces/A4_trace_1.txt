@@ -73,4 +73,4 @@ Il y a un seul point de sortie, 14
 12 0  0  0  0  1  1  1  1  1  1  1   1   0   1   1   
 13 0  0  0  0  1  1  1  1  1  1  1   1   0   1   1   
 14 0  0  0  0  0  0  0  0  0  0  0   0   0   0   0   
-Il y a un circuit car la diagonal de la matrice ne comporte un ou plusieurs 1 !
+Il y a un circuit car la diagonale de la matrice comporte un ou plusieurs 1 !
